@@ -1,10 +1,14 @@
-name: Test Charts
+name: Lint and Test Charts
 
 on:
   pull_request:
+    branches:
+      - main
+    paths:
+      - "charts/**"
 
 jobs:
-  test:
+  lint-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,9 +21,15 @@ jobs:
         with:
           version: "3.14.0"
 
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.x"
+
+      - name: Run helm-docs
+        uses: losisin/helm-docs-github-action@8dc2304e986afbbb0b7db0a9980b6bf68c1307cf # v1.5.2
+        with:
+          fail-on-diff: true
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@0d28d3144d3a25ea2cc349d6e59901c4ff469b3b # v2.7.0
@@ -44,4 +54,3 @@ jobs:
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct install --exclude-deprecated --config ct.yaml
-

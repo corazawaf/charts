@@ -1,8 +1,6 @@
 remote: origin
 validate-maintainers: false
 target-branch: main
-chart-repos:
-  - corazawaf=https://corazawaf.github.io/charts
 helm-extra-args: --timeout 800s
 chart-dirs:
   - charts
