@@ -1,0 +1,70 @@
+# Default values for coraza-spoa.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: ghcr.io/corazawaf/coraza-spoa
+  pullPolicy: IfNotPresent
+  # -- SemVer `X.X.X` or git `sha256:digest`
+  tag: ""
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+resources: {}
+
+volumes: []
+volumeMounts: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+metrics:
+  enabled: true
+  port: 9100
+  serviceMonitor:
+    enabled: true
+
+# -- Coraza SPOA configuration: https://github.com/corazawaf/coraza-spoa/blob/main/example/coraza-spoa.yaml
+config:
+  bind: 0.0.0.0:9000
+  log_file: /dev/stdout
+  log_format: json
+  log_level: info
+  default_application: default
+  applications:
+    - name: default
+      log_file: /dev/stdout
+      log_format: json
+      log_level: error
+      response_check: false
+      transaction_ttl_ms: 60000
+      directives: |
+        Include @coraza.conf-recommended
+        Include @crs-setup.conf.example
+        Include /etc/coraza/before.conf
+        Include @owasp_crs/*.conf
+        Include /etc/coraza/after.conf
+        SecRuleEngine On
+
+# -- Custom rules that will be mounted as separate files.
+rules:
+  # -- These rules will be mounted at: `/etc/coraza/before.conf`
+  before: |
+    # Include this file before default CRS rules
+  # -- These rules will be mounted at: `/etc/coraza/after.conf`
+  after: |
+    # Include this file after default CRS rules
+  # -- These rules will be mounted at: `/etc/coraza/extra.conf`
+  extra: |
+    # Use this file for additional configuration flexibility
