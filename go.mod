@@ -3,7 +3,7 @@ module test
 go 1.24.5
 
 require (
-	github.com/gruntwork-io/terratest v0.52.0
+	github.com/gruntwork-io/terratest v0.53.0
 	github.com/onsi/gomega v1.38.2
 	k8s.io/api v0.34.2
 )
