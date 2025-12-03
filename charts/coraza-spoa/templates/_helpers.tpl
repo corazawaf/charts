@@ -58,3 +58,14 @@ Image tag
 {{- $prefix := ternary "@" ":" (hasPrefix "sha256" $tag) }}
 {{- printf "%s%s" $prefix $tag }}
 {{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "coraza-spoa.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "coraza-spoa.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
