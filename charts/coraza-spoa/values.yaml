@@ -2,38 +2,157 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- Image configuration
 image:
+  # -- Image repository
   repository: ghcr.io/corazawaf/coraza-spoa
+  # -- Image pull policy
   pullPolicy: IfNotPresent
-  # -- SemVer `X.X.X` or git `sha256:digest`
+  # -- Image tag (SemVer `X.X.X` or git `sha256:digest`)
   tag: ""
 
+# -- Reference to one or more secrets to use for pulling images
+imagePullSecrets: []
+  # - name: regcred
+
+# -- Override the name of the chart
 nameOverride: ""
+
+# -- Override the full name of the chart
 fullnameOverride: ""
 
+# -- Number of replicas
 replicaCount: 1
 
+# -- Annotations to add to the pod
+podAnnotations: {}
+
+# -- Labels to add to the pod
+podLabels: {}
+
+# -- Pod security context
+podSecurityContext: {}
+  # runAsNonRoot: true
+  # runAsUser: 65534
+  # runAsGroup: 65534
+  # fsGroup: 65534
+  # seccompProfile:
+  #   type: RuntimeDefault
+
+# -- Container security context
+securityContext: {}
+  # allowPrivilegeEscalation: false
+  # readOnlyRootFilesystem: true
+  # capabilities:
+  #   drop:
+  #     - ALL
+
+# -- ServiceAccount configuration
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+  # -- Specifies whether to automount the service account token
+  automountServiceAccountToken: false
+
+# -- Autoscaling configuration
 autoscaling:
+  # -- Enable autoscaling
   enabled: false
+  # -- Minimum number of replicas
   minReplicas: 1
+  # -- Maximum number of replicas
   maxReplicas: 4
+  # -- Target CPU utilization percentage
   targetCPUUtilizationPercentage: 80
+  # -- Target memory utilization percentage
   targetMemoryUtilizationPercentage: 80
 
-resources: {}
+# -- Pod Disruption Budget configuration
+podDisruptionBudget:
+  # -- Enable PodDisruptionBudget
+  enabled: false
+  # -- Minimum number of pods that must be available (mutually exclusive with maxUnavailable)
+  # minAvailable: 1
+  # -- Maximum number of pods that can be unavailable (mutually exclusive with minAvailable)
+  # maxUnavailable: 1
 
+# -- Resource requests and limits
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# -- Liveness probe configuration
+livenessProbe:
+  tcpSocket:
+    port: spoa
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+# -- Readiness probe configuration
+readinessProbe:
+  tcpSocket:
+    port: spoa
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+# -- Node selector for pod scheduling
 nodeSelector: {}
+
+# -- Tolerations for pod scheduling
 tolerations: []
+
+# -- Affinity rules for pod scheduling
 affinity: {}
 
+# -- Topology spread constraints for pod scheduling
+topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: kubernetes.io/hostname
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #     matchLabels:
+  #       app.kubernetes.io/name: coraza-spoa
+
+# -- Priority class name for the pod
+priorityClassName: ""
+
+# -- Termination grace period in seconds
+terminationGracePeriodSeconds: 30
+
+# -- Additional volumes to add to the pod
 volumes: []
+  # -- tmpfs volume for /tmp (required for readOnlyRootFilesystem)
+  # - name: tmp
+  #   emptyDir:
+  #     medium: Memory
+  #     sizeLimit: 1Gi
   # - name: crs
   #   emptyDir: {}
 
+# -- Additional volume mounts for the main container
 volumeMounts: []
+  # -- Mount tmpfs to /tmp (required for readOnlyRootFilesystem)
+  # - name: tmp
+  #   mountPath: /tmp
   # - name: crs
   #   mountPath: /etc/crs
 
+# -- Init containers to add to the pod
 initContainers: []
   # - name: crs
   #   image: busybox:1.36
@@ -59,15 +178,22 @@ initContainers: []
   #     - name: crs
   #       mountPath: /etc/crs
 
+# -- Sidecar containers to add to the pod
 sidecarContainers: []
 
+# -- Metrics configuration
 metrics:
+  # -- Enable metrics endpoint
   enabled: true
+  # -- Metrics port
   port: 9100
+  # -- ServiceMonitor configuration
   serviceMonitor:
+    # -- Enable ServiceMonitor for Prometheus Operator
     enabled: false
 
-# -- Coraza SPOA configuration: https://github.com/corazawaf/coraza-spoa/blob/main/example/coraza-spoa.yaml
+# -- Coraza SPOA configuration
+# @default -- See values.yaml
 config:
   bind: 0.0.0.0:9000
   log_file: /dev/stdout
@@ -89,14 +215,14 @@ config:
         Include /etc/coraza/after.conf
         SecRuleEngine On
 
-# -- Custom rules that will be mounted as separate files.
+# -- Custom rules that will be mounted as separate files
 rules:
-  # -- These rules will be mounted at: `/etc/coraza/before.conf`
+  # -- Rules to include before default CRS rules (mounted at `/etc/coraza/before.conf`)
   before: |
     # Include this file before default CRS rules
-  # -- These rules will be mounted at: `/etc/coraza/after.conf`
+  # -- Rules to include after default CRS rules (mounted at `/etc/coraza/after.conf`)
   after: |
     # Include this file after default CRS rules
-  # -- These rules will be mounted at: `/etc/coraza/extra.conf`
+  # -- Extra rules for additional configuration (mounted at `/etc/coraza/extra.conf`)
   extra: |
     # Use this file for additional configuration flexibility
