@@ -11,6 +11,8 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+namespaceOverride: ""
+
 replicaCount: 1
 
 autoscaling:

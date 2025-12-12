@@ -1,6 +1,6 @@
 # coraza-spoa
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.0](https://img.shields.io/badge/AppVersion-0.5.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 
@@ -30,6 +30,7 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | metrics.port | int | `9100` |  |
 | metrics.serviceMonitor.enabled | bool | `false` |  |
 | nameOverride | string | `""` |  |
+| namespaceOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
