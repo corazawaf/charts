@@ -27,7 +27,7 @@ jobs:
           python-version: "3.x"
 
       - name: Run helm-docs
-        uses: losisin/helm-docs-github-action@a57fae5676e4c55a228ea654a1bcaec8dd3cf5b5 # v1.6.2
+        uses: losisin/helm-docs-github-action@7f13f1abe2db298ccc9f046b3eff30a5e7ade35a # v1.7.0
         with:
           fail-on-diff: true
 
