@@ -136,7 +136,7 @@ terminationGracePeriodSeconds: 30
 
 # -- Additional volumes to add to the pod
 volumes: []
-  # -- tmpfs volume for /tmp (required for readOnlyRootFilesystem)
+  # tmpfs volume for /tmp (required for readOnlyRootFilesystem)
   # - name: tmp
   #   emptyDir:
   #     medium: Memory
@@ -146,7 +146,7 @@ volumes: []
 
 # -- Additional volume mounts for the main container
 volumeMounts: []
-  # -- Mount tmpfs to /tmp (required for readOnlyRootFilesystem)
+  # Mount tmpfs to /tmp (required for readOnlyRootFilesystem)
   # - name: tmp
   #   mountPath: /tmp
   # - name: crs
