@@ -3,6 +3,27 @@ entries:
   coraza-spoa:
   - apiVersion: v2
     appVersion: 0.4.0
+    created: "2026-01-26T18:59:30.24822646Z"
+    description: A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
+    digest: 7658626eacf083062d189f3a9c54482619c242be3bc9f8e4c803a51278c227f6
+    home: https://github.com/corazawaf/charts
+    keywords:
+    - waf
+    - coraza
+    - spoa
+    - haproxy
+    - security
+    - firewall
+    - owasp
+    name: coraza-spoa
+    sources:
+    - https://github.com/corazawaf/coraza-spoa
+    type: application
+    urls:
+    - https://github.com/corazawaf/charts/releases/download/coraza-spoa-0.2.0/coraza-spoa-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.4.0
     created: "2025-09-05T12:47:02.208744237Z"
     description: A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
     digest: d1fb3e3c4619564edf660c52597c1308bfb4bd4c75e09b02d33273600ca8e47e
@@ -22,4 +43,4 @@ entries:
     urls:
     - https://github.com/corazawaf/charts/releases/download/coraza-spoa-0.1.0/coraza-spoa-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-05T12:47:02.208750439Z"
+generated: "2026-01-26T18:59:30.248240456Z"
