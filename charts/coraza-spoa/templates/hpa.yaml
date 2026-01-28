@@ -3,6 +3,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "coraza-spoa.fullname" . }}
+  namespace: {{ default .Release.Namespace .Values.namespaceOverride }}
   labels:
     {{- include "coraza-spoa.labels" . | nindent 4 }}
 spec:

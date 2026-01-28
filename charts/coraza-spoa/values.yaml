@@ -21,6 +21,9 @@ nameOverride: ""
 # -- Override the full name of the chart
 fullnameOverride: ""
 
+# -- Override the namespace
+namespaceOverride: ""
+
 # -- Number of replicas
 replicaCount: 1
 

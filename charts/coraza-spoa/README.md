@@ -1,6 +1,6 @@
 # coraza-spoa
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.4.0](https://img.shields.io/badge/AppVersion-0.4.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.0](https://img.shields.io/badge/AppVersion-0.5.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 
@@ -36,6 +36,7 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | metrics.serviceMonitor | object | `{"enabled":false}` | ServiceMonitor configuration |
 | metrics.serviceMonitor.enabled | bool | `false` | Enable ServiceMonitor for Prometheus Operator |
 | nameOverride | string | `""` | Override the name of the chart |
+| namespaceOverride | string | `""` | Override the namespace |
 | nodeSelector | object | `{}` | Node selector for pod scheduling |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
 | podDisruptionBudget | object | `{"enabled":false}` | Pod Disruption Budget configuration |

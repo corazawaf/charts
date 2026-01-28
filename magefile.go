@@ -35,7 +35,7 @@ func Lint() error {
 func Docs() error {
 	var cmd *exec.Cmd
 	if isPodman() {
-		cmd = exec.Command("podman", "run", "--rm", "--volume=.:/helm-docs", "jnorwood/helm-docs:v1.14.2")
+		cmd = exec.Command("podman", "run", "--rm", "--volume=.:/helm-docs:Z", "jnorwood/helm-docs:v1.14.2")
 	} else {
 		uid := fmt.Sprint(os.Getuid())
 		cmd = exec.Command("docker", "run", "--rm", "--user", uid, "--volume=.:/helm-docs", "jnorwood/helm-docs:v1.14.2")

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "coraza-spoa.fullname" . }}
+  namespace: {{ default .Release.Namespace .Values.namespaceOverride }}
   labels:
     {{- include "coraza-spoa.labels" . | nindent 4 }}
 spec:

@@ -3,6 +3,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "coraza-spoa.fullname" . }}
+  namespace: {{ default .Release.Namespace .Values.namespaceOverride }}
   labels:
     {{- include "coraza-spoa.labels" . | nindent 4 }}
 spec:
@@ -17,4 +18,3 @@ spec:
     matchLabels:
       {{- include "coraza-spoa.selectorLabels" . | nindent 6 }}
 {{- end }}
-

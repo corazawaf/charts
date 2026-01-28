@@ -60,6 +60,7 @@ func TestSpoaDeploymentCustom(t *testing.T) {
 
 	options := &helm.Options{
 		SetValues: map[string]string{
+			"namespaceOverride":                           "ingress",
 			"replicaCount":                                "3",
 			"image.tag":                                   spoaImageTagSha256,
 			"image.pullPolicy":                            "Always",
@@ -83,6 +84,7 @@ func TestSpoaDeploymentCustom(t *testing.T) {
 	var deployment appsv1.Deployment
 	helm.UnmarshalK8SYaml(t, output, &deployment)
 
+	Expect(deployment.ObjectMeta.Namespace).To(Equal("ingress"))
 	Expect(*deployment.Spec.Replicas).To(Equal(int32(3)))
 	Expect(deployment.Spec.Template.Spec.Containers[0].Image).To(Equal(fmt.Sprintf("%s@%s", spoaImageRepo, spoaImageTagSha256)))
 	Expect(deployment.Spec.Template.Spec.Containers[0].ImagePullPolicy).To(Equal(v1.PullPolicy("Always")))
