@@ -75,6 +75,29 @@ autoscaling:
   # -- Target memory utilization percentage
   targetMemoryUtilizationPercentage: 80
 
+# -- VerticalPodAutoscaler configuration
+# @default -- See values.yaml
+verticalPodAutoscaler:
+  # -- Enable VerticalPodAutoscaler
+  enabled: false
+  # -- List of recommenders to use (leave empty for default)
+  recommenders: []
+  # -- Controlled resources (cpu, memory)
+  controlledResources: []
+  # -- Controlled values (RequestsOnly, RequestsAndLimits)
+  controlledValues: ""
+  # -- Maximum allowed resources
+  maxAllowed: {}
+    # cpu: 2
+    # memory: 2Gi
+  # -- Minimum allowed resources
+  minAllowed: {}
+    # cpu: 100m
+    # memory: 128Mi
+  # -- Update policy (Auto, Off, Initial, Recreate)
+  updatePolicy: {}
+    # updateMode: Auto
+
 # -- Pod Disruption Budget configuration
 podDisruptionBudget:
   # -- Enable PodDisruptionBudget
