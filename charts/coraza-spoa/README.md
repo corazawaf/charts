@@ -1,6 +1,6 @@
 # coraza-spoa
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.5.0](https://img.shields.io/badge/AppVersion-0.5.0-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.0](https://img.shields.io/badge/AppVersion-0.6.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 
@@ -61,5 +61,13 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | terminationGracePeriodSeconds | int | `30` | Termination grace period in seconds |
 | tolerations | list | `[]` | Tolerations for pod scheduling |
 | topologySpreadConstraints | list | `[]` | Topology spread constraints for pod scheduling |
+| verticalPodAutoscaler | object | See values.yaml | VerticalPodAutoscaler configuration |
+| verticalPodAutoscaler.controlledResources | list | `[]` | Controlled resources (cpu, memory) |
+| verticalPodAutoscaler.controlledValues | string | `""` | Controlled values (RequestsOnly, RequestsAndLimits) |
+| verticalPodAutoscaler.enabled | bool | `false` | Enable VerticalPodAutoscaler |
+| verticalPodAutoscaler.maxAllowed | object | `{}` | Maximum allowed resources |
+| verticalPodAutoscaler.minAllowed | object | `{}` | Minimum allowed resources |
+| verticalPodAutoscaler.recommenders | list | `[]` | List of recommenders to use (leave empty for default) |
+| verticalPodAutoscaler.updatePolicy | object | `{}` | Update policy (Auto, Off, Initial, Recreate) |
 | volumeMounts | list | `[]` | Additional volume mounts for the main container |
 | volumes | list | `[]` | Additional volumes to add to the pod |
