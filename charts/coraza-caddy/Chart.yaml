@@ -1,0 +1,16 @@
+apiVersion: v2
+name: coraza-caddy
+description: A Helm chart for Kubernetes to deploy Coraza Caddy WAF
+home: https://github.com/corazawaf/charts
+sources:
+  - https://github.com/corazawaf/coraza-caddy
+type: application
+version: 0.1.0
+appVersion: "2.5.0"
+keywords:
+  - waf
+  - coraza
+  - caddy
+  - security
+  - firewall
+  - owasp
