@@ -1,0 +1,16 @@
+{{ if .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "coraza-caddy.fullname" . }}
+  namespace: {{ default .Release.Namespace .Values.namespaceOverride }}
+  labels:
+    {{- include "coraza-caddy.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "coraza-caddy.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - path: /metrics
+      port: metrics
+{{- end }}
