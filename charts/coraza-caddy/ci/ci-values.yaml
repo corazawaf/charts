@@ -1,0 +1,17 @@
+# CI test values for coraza-caddy.
+# Uses a minimal Caddyfile with the Coraza WAF in detection-only mode so that
+# the pod starts and the liveness/readiness probes pass without needing a backend.
+
+caddyfile: |
+  {
+      order coraza_waf first
+  }
+
+  :8080 {
+      coraza_waf {
+          directives `
+              SecRuleEngine DetectionOnly
+          `
+      }
+      respond "OK"
+  }
