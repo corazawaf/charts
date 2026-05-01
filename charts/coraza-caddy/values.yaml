@@ -5,11 +5,12 @@
 # -- Image configuration
 image:
   # -- Image repository
-  repository: ghcr.io/corazawaf/coraza-caddy
+  repository: ghcr.io/coreruleset/coraza-crs
   # -- Image pull policy
   pullPolicy: IfNotPresent
-  # -- Image tag (SemVer `X.X.X` or git `sha256:digest`)
-  tag: ""
+  # -- Image tag. Rolling tag `caddy-alpine` always points to the latest build;
+  # use a pinned stable tag (e.g. `4-caddy-alpine-20260412`) in production.
+  tag: "caddy-alpine"
 
 # -- Reference to one or more secrets to use for pulling images
 imagePullSecrets: []

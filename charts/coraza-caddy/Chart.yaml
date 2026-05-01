@@ -6,7 +6,7 @@ sources:
   - https://github.com/corazawaf/coraza-caddy
 type: application
 version: 0.1.0
-appVersion: "2.5.0"
+appVersion: "20260412"
 keywords:
   - waf
   - coraza
