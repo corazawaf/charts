@@ -1,0 +1,12 @@
+# CI test values for coraza-caddy.
+# Uses the standard caddy image (without the coraza plugin) with a simple
+# Caddyfile to verify the chart installs and the pod starts successfully.
+
+image:
+  repository: docker.io/caddy
+  tag: "2"
+
+caddyfile: |
+  :8080 {
+    respond "OK"
+  }
