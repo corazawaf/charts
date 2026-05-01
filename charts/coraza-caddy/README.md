@@ -1,6 +1,6 @@
 # coraza-caddy
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.5.0](https://img.shields.io/badge/AppVersion-2.5.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 20260412](https://img.shields.io/badge/AppVersion-20260412-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy Coraza Caddy WAF
 
@@ -23,10 +23,10 @@ A Helm chart for Kubernetes to deploy Coraza Caddy WAF
 | autoscaling.targetMemoryUtilizationPercentage | int | `80` | Target memory utilization percentage |
 | caddyfile | string | See values.yaml | Caddyfile configuration |
 | fullnameOverride | string | `""` | Override the full name of the chart |
-| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/corazawaf/coraza-caddy","tag":""}` | Image configuration |
+| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/coreruleset/coraza-crs","tag":"caddy-alpine"}` | Image configuration |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"ghcr.io/corazawaf/coraza-caddy"` | Image repository |
-| image.tag | string | `""` | Image tag (SemVer `X.X.X` or git `sha256:digest`) |
+| image.repository | string | `"ghcr.io/coreruleset/coraza-crs"` | Image repository |
+| image.tag | string | `"caddy-alpine"` | Image tag. Rolling tag `caddy-alpine` always points to the latest build; use a pinned stable tag (e.g. `4-caddy-alpine-20260412`) in production. |
 | imagePullSecrets | list | `[]` | Reference to one or more secrets to use for pulling images |
 | initContainers | list | `[]` | Init containers to add to the pod |
 | livenessProbe | object | `{"failureThreshold":3,"initialDelaySeconds":5,"periodSeconds":10,"successThreshold":1,"tcpSocket":{"port":"http"},"timeoutSeconds":5}` | Liveness probe configuration |
