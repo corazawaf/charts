@@ -18,12 +18,14 @@ spec:
   {{- end }}
   template:
     metadata:
+      {{- if or .Values.addChecksumConfigAnnotation .Values.podAnnotations }}
       annotations:
         {{- if .Values.addChecksumConfigAnnotation }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
+        {{- end }}
         {{- end }}
       labels:
         {{- include "coraza-spoa.labels" . | nindent 8 }}
