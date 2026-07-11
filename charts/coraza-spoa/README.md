@@ -1,6 +1,6 @@
 # coraza-spoa
 
-![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.7.2](https://img.shields.io/badge/AppVersion-0.7.2-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.7.2](https://img.shields.io/badge/AppVersion-0.7.2-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 
@@ -14,6 +14,7 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| addChecksumConfigAnnotation | bool | `true` | Add checksum/config annotation to force rollout when configuration hash changes |
 | affinity | object | `{}` | Affinity rules for pod scheduling |
 | autoscaling | object | `{"enabled":false,"maxReplicas":4,"minReplicas":1,"targetCPUUtilizationPercentage":80,"targetMemoryUtilizationPercentage":80}` | Autoscaling configuration |
 | autoscaling.enabled | bool | `false` | Enable autoscaling |
@@ -22,6 +23,9 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | autoscaling.targetCPUUtilizationPercentage | int | `80` | Target CPU utilization percentage |
 | autoscaling.targetMemoryUtilizationPercentage | int | `80` | Target memory utilization percentage |
 | config | object | See values.yaml | Coraza SPOA configuration |
+| daemonset | object | `{"enabled":false,"updateStrategy":{}}` | DaemonSet mode configuration |
+| daemonset.enabled | bool | `false` | Deploy Coraza SPOA as a DaemonSet instead of a Deployment |
+| daemonset.updateStrategy | object | `{}` | DaemonSet update strategy |
 | fullnameOverride | string | `""` | Override the full name of the chart |
 | image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/corazawaf/coraza-spoa","tag":""}` | Image configuration |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
@@ -52,6 +56,12 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | rules.before | string | `"# Include this file before default CRS rules\n"` | Rules to include before default CRS rules (mounted at `/etc/coraza/before.conf`) |
 | rules.extra | string | `"# Use this file for additional configuration flexibility\n"` | Extra rules for additional configuration (mounted at `/etc/coraza/extra.conf`) |
 | securityContext | object | `{}` | Container security context |
+| service | object | `{"annotations":{},"clusterIP":"","internalTrafficPolicy":"","trafficDistribution":"","type":"ClusterIP"}` | Service configuration |
+| service.annotations | object | `{}` | Service annotations |
+| service.clusterIP | string | `""` | Static ClusterUP |
+| service.internalTrafficPolicy | string | `""` | InternalTrafficPolicy |
+| service.trafficDistribution | string | `""` | TrafficDistribution |
+| service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount | object | `{"annotations":{},"automountServiceAccountToken":false,"create":true,"name":""}` | ServiceAccount configuration |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automountServiceAccountToken | bool | `false` | Specifies whether to automount the service account token |

@@ -1,21 +1,27 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: {{ if .Values.daemonset.enabled }}DaemonSet{{ else }}Deployment{{ end }}
 metadata:
   name: {{ include "coraza-spoa.fullname" . }}
   namespace: {{ default .Release.Namespace .Values.namespaceOverride }}
   labels:
     {{- include "coraza-spoa.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+  {{- if and (not .Values.autoscaling.enabled) (not .Values.daemonset.enabled) }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
       {{- include "coraza-spoa.selectorLabels" . | nindent 6 }}
+  {{- if and .Values.daemonset.enabled .Values.daemonset.updateStrategy }}
+  updateStrategy:
+    {{- toYaml .Values.daemonset.updateStrategy | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       annotations:
+        {{- if .Values.addChecksumConfigAnnotation }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

@@ -195,6 +195,19 @@ metrics:
     # -- Enable ServiceMonitor for Prometheus Operator
     enabled: false
 
+# -- Service configuration
+service:
+  # -- Service type
+  type: ClusterIP
+  # -- Static ClusterUP
+  clusterIP: ""
+  # -- InternalTrafficPolicy
+  internalTrafficPolicy: ""
+  # -- TrafficDistribution
+  trafficDistribution: ""
+  # -- Service annotations
+  annotations: {}
+
 # -- Coraza SPOA configuration
 # @default -- See values.yaml
 config:
@@ -229,3 +242,13 @@ rules:
   # -- Extra rules for additional configuration (mounted at `/etc/coraza/extra.conf`)
   extra: |
     # Use this file for additional configuration flexibility
+
+# -- Add checksum/config annotation to force rollout when configuration hash changes
+addChecksumConfigAnnotation: true
+
+# -- DaemonSet mode configuration
+daemonset:
+  # -- Deploy Coraza SPOA as a DaemonSet instead of a Deployment
+  enabled: false
+  # -- DaemonSet update strategy
+  updateStrategy: {}
