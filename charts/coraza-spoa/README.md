@@ -23,9 +23,9 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | autoscaling.targetCPUUtilizationPercentage | int | `80` | Target CPU utilization percentage |
 | autoscaling.targetMemoryUtilizationPercentage | int | `80` | Target memory utilization percentage |
 | config | object | See values.yaml | Coraza SPOA configuration |
-| daemonset | object | `{"enabled":false,"updateStrategy":{}}` | DaemonSet mode configuration |
-| daemonset.enabled | bool | `false` | Deploy Coraza SPOA as a DaemonSet instead of a Deployment |
-| daemonset.updateStrategy | object | `{}` | DaemonSet update strategy |
+| daemonSet | object | `{"enabled":false,"updateStrategy":{}}` | DaemonSet mode configuration |
+| daemonSet.enabled | bool | `false` | Deploy Coraza SPOA as a DaemonSet instead of a Deployment |
+| daemonSet.updateStrategy | object | `{}` | DaemonSet update strategy |
 | fullnameOverride | string | `""` | Override the full name of the chart |
 | image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/corazawaf/coraza-spoa","tag":""}` | Image configuration |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
@@ -58,7 +58,7 @@ A Helm chart for Kubernetes to deploy Coraza SPOA WAF for HAProxy
 | securityContext | object | `{}` | Container security context |
 | service | object | `{"annotations":{},"clusterIP":"","internalTrafficPolicy":"","trafficDistribution":"","type":"ClusterIP"}` | Service configuration |
 | service.annotations | object | `{}` | Service annotations |
-| service.clusterIP | string | `""` | Static ClusterUP |
+| service.clusterIP | string | `""` | Static ClusterIP |
 | service.internalTrafficPolicy | string | `""` | InternalTrafficPolicy |
 | service.trafficDistribution | string | `""` | TrafficDistribution |
 | service.type | string | `"ClusterIP"` | Service type |

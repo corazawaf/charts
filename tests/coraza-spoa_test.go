@@ -113,13 +113,13 @@ func TestSpoaDeploymentCustom(t *testing.T) {
 	Expect(deployment.Spec.Template.Spec.InitContainers[0].VolumeMounts[0].MountPath).To(Equal("/etc/crs"))
 }
 
-func TestSpoaDaemonset(t *testing.T) {
+func TestSpoaDaemonSet(t *testing.T) {
 	RegisterTestingT(t)
 
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"daemonset.enabled":             "true",
-			"daemonset.updateStrategy.type": "OnDelete",
+			"daemonSet.enabled":             "true",
+			"daemonSet.updateStrategy.type": "OnDelete",
 		},
 	}
 

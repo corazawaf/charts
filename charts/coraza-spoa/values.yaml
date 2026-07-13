@@ -199,7 +199,7 @@ metrics:
 service:
   # -- Service type
   type: ClusterIP
-  # -- Static ClusterUP
+  # -- Static ClusterIP
   clusterIP: ""
   # -- InternalTrafficPolicy
   internalTrafficPolicy: ""
@@ -247,7 +247,7 @@ rules:
 addChecksumConfigAnnotation: true
 
 # -- DaemonSet mode configuration
-daemonset:
+daemonSet:
   # -- Deploy Coraza SPOA as a DaemonSet instead of a Deployment
   enabled: false
   # -- DaemonSet update strategy

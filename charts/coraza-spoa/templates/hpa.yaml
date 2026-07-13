@@ -1,4 +1,4 @@
-{{- if and .Values.autoscaling.enabled (not .Values.daemonset.enabled) }}
+{{- if and .Values.autoscaling.enabled (not .Values.daemonSet.enabled) }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
