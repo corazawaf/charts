@@ -113,6 +113,25 @@ func TestSpoaDeploymentCustom(t *testing.T) {
 	Expect(deployment.Spec.Template.Spec.InitContainers[0].VolumeMounts[0].MountPath).To(Equal("/etc/crs"))
 }
 
+func TestSpoaDaemonSet(t *testing.T) {
+	RegisterTestingT(t)
+
+	options := &helm.Options{
+		SetValues: map[string]string{
+			"daemonSet.enabled":             "true",
+			"daemonSet.updateStrategy.type": "OnDelete",
+		},
+	}
+
+	output := helm.RenderTemplate(t, options, spoaHelmChartPath, spoaHelmReleaseName, []string{"templates/deployment.yaml"})
+
+	var daemonset appsv1.DaemonSet
+	helm.UnmarshalK8SYaml(t, output, &daemonset)
+
+	Expect(daemonset.Kind).To(Equal("DaemonSet"))
+	Expect(daemonset.Spec.UpdateStrategy.Type).To(Equal(appsv1.DaemonSetUpdateStrategyType("OnDelete")))
+}
+
 func TestSpoaService(t *testing.T) {
 	RegisterTestingT(t)
 
@@ -133,6 +152,31 @@ func TestSpoaService(t *testing.T) {
 	Expect(service.Spec.Ports[1].Protocol).To(Equal(v1.Protocol("TCP")))
 	Expect(service.Spec.Ports[1].Port).To(Equal(int32(9100)))
 	Expect(len(service.Spec.Ports)).To(Equal(2))
+}
+
+func TestSpoaServiceCustom(t *testing.T) {
+	RegisterTestingT(t)
+
+	options := &helm.Options{
+		SetValues: map[string]string{
+			"service.type":                  "LoadBalancer",
+			"service.clusterIP":             "10.0.171.239",
+			"service.internalTrafficPolicy": "Local",
+			"service.trafficDistribution":   "PreferSameNode",
+			"service.annotations.foo":       "boo",
+		},
+	}
+
+	output := helm.RenderTemplate(t, options, spoaHelmChartPath, spoaHelmReleaseName, []string{"templates/service.yaml"})
+
+	var service v1.Service
+	helm.UnmarshalK8SYaml(t, output, &service)
+
+	Expect(service.Spec.Type).To(Equal(v1.ServiceType("LoadBalancer")))
+	Expect(service.Spec.ClusterIP).To(Equal("10.0.171.239"))
+	Expect(*service.Spec.InternalTrafficPolicy).To(Equal(v1.ServiceInternalTrafficPolicy("Local")))
+	Expect(*service.Spec.TrafficDistribution).To(Equal("PreferSameNode"))
+	Expect(service.ObjectMeta.Annotations["foo"]).To(Equal("boo"))
 }
 
 func TestSpoaServiceCustomPorts(t *testing.T) {
