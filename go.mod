@@ -4,8 +4,8 @@ go 1.26
 
 require (
 	github.com/gruntwork-io/terratest v0.56.0
-	github.com/onsi/gomega v1.39.1
-	k8s.io/api v0.35.3
+	github.com/onsi/gomega v1.42.1
+	k8s.io/api v0.36.2
 )
 
 require (
