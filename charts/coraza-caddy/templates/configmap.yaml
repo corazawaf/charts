@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "coraza-caddy.fullname" . }}
+  namespace: {{ default .Release.Namespace .Values.namespaceOverride }}
+  labels:
+    {{- include "coraza-caddy.labels" . | nindent 4 }}
+data:
+  Caddyfile: |
+    {{- .Values.caddyfile | trim | nindent 4 }}
