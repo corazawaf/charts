@@ -62,7 +62,7 @@ jobs:
 
       - name: Run helm-docs
         if: steps.compare.outputs.needs_update == 'true'
-        uses: losisin/helm-docs-github-action@2ccf3e77eb70dc80d62f8cc26f15d0a96b75fef4 # v1.8.0
+        uses: losisin/helm-docs-github-action@9e0787c426fdec38be6288bb5c0559dcb388412c # v2.0.1
         with:
           chart-search-root: charts/${{ env.IMAGE_NAME }}
 
